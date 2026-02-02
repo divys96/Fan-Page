@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yes or No Question</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    #container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 1em;
+      font-family: Arial, sans-serif;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
+
+    button {
+      font-size: 1em;
+      padding: 0.5em 1em;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+    }
+
+    #yes {
+      background-color: #4CAF50;
+      color: #ffffff;
+    }
+
+    #no {
+      background-color: #f44336;
+      color: #fff;
+    }
+
+    /* Animated background */
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .animated-bg div {
+      position: absolute;
+      bottom: -10%;
+      width: 40px;
+      height: 40px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0;
+      animation: drift 10s linear infinite;
+    }
+
+    .heart { background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Red_heart.svg/1200px-Red_heart.svg.png'); }
+    .rose  { background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Red_rose_icon.svg/1024px-Red_rose_icon.svg.png'); }
+
+    .animated-bg div:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .animated-bg div:nth-child(2) { left: 30%; animation-delay: 2s; }
+    .animated-bg div:nth-child(3) { left: 50%; animation-delay: 4s; }
+    .animated-bg div:nth-child(4) { left: 70%; animation-delay: 6s; }
+    .animated-bg div:nth-child(5) { left: 90%; animation-delay: 8s; }
+
+    @keyframes drift {
+      0% { transform: translateY(0); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg">
+    <div class="heart"></div>
+    <div class="rose"></div>
+    <div class="heart"></div>
+    <div class="rose"></div>
+    <div class="heart"></div>
+  </div>
+
+  <div id="container">
+    <h1>Sumi, Will you be my valentines?</h1>
+    <div class="buttons">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+    </div>
+  </div>
+
+  <script>
+    const noButton = document.getElementById('no');
+    const container = document.getElementById('container');
+
+    noButton.addEventListener('mouseover', () => {
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = noButton.getBoundingClientRect();
+      const maxLeft = containerRect.width - btnRect.width;
+      const maxTop = containerRect.height - btnRect.height;
+      const newLeft = Math.random() * maxLeft;
+      const newTop = Math.random() * maxTop;
+      noButton.style.position = 'absolute';
+      noButton.style.left = `${newLeft}px`;
+      noButton.style.top = `${newTop}px`;
+    });
+  </script>
+</body>
+</html>
